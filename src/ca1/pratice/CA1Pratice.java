@@ -51,6 +51,13 @@ public class CA1Pratice {
                 int theClass;
                 double price;
                 int year;
+                
+                /*
+                Variable to store data validation. Firstly is store 0, if any condition doesn't match with the 
+                based on the validations. The cases are:
+                0 - name 
+                */
+                int validation = 0;
                 /*
                 A while loop that will run while there is a next line to be read. It stops once it gets to a blank line. So it can be used on this way for this exercise, but on a more complex document would require a more complex validation(guard) since this could easly cause trouble.
                 */
@@ -67,6 +74,7 @@ public class CA1Pratice {
                         firstName = names[0];
                         surname = names[1];
                         System.out.println(firstName + " " + surname);
+                        
                     }
                     else if(line.matches("^[0-9]*\\.[0-9]+$")){
                         price = Double.parseDouble(line);
@@ -74,12 +82,31 @@ public class CA1Pratice {
                     }
                     else if (line.matches("^\\d{1}$")){
                         theClass = Integer.parseInt(line);
-                        System.out.println(line);
+                        System.out.println(theClass);
                     }
                     else if(line.matches("\\d{4}$")){
                         year = Integer.parseInt(line);
                         System.out.println(year);
                     }
+                    
+                    switch(validation){
+                        case 1:
+                            System.out.println("Name validation fail");
+                            break;
+                        case 2:
+                            System.out.println("Price validation fail");
+                            break;
+                        case 3:
+                            System.out.println("Class validation fail");
+                            break;
+                        case 4:
+                            System.out.println("Year validation fail");
+                            break;
+                    }
+                            
+                    
+                                
+                    
                     
                 }
              
