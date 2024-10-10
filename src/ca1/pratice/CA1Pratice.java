@@ -5,6 +5,7 @@
 package ca1.pratice;
 
 import java.io.FileReader; //Import Java FileReader package to read the file
+import java.util.Arrays; //Import Arrays package that will be used to store names
 import java.util.Scanner; //Import Scanner package 
 
 
@@ -45,7 +46,7 @@ public class CA1Pratice {
                 c) the value of purchase of classes must be double; d) the Class must be a integer between 1 to 3. e) Last purchase must be a valid year.s
                 */
                 String fullName;
-                String name;
+                String firstName;
                 String surname;
                 int theClass;
                 double price;
@@ -62,9 +63,22 @@ public class CA1Pratice {
                     */
                     if(line.matches("^[A-Za-z]+\\s[A-Za-z0-9]+$")){
                         fullName = line;
-                        System.out.println(fullName);
-                        
-                        
+                        String[] names = fullName.split(" ");
+                        firstName = names[0];
+                        surname = names[1];
+                        System.out.println(firstName + " " + surname);
+                    }
+                    else if(line.matches("^[0-9]*\\.[0-9]+$")){
+                        price = Double.parseDouble(line);
+                        System.out.println(price);
+                    }
+                    else if (line.matches("^\\d{1}$")){
+                        theClass = Integer.parseInt(line);
+                        System.out.println(line);
+                    }
+                    else if(line.matches("\\d{4}$")){
+                        year = Integer.parseInt(line);
+                        System.out.println(year);
                     }
                     
                 }
