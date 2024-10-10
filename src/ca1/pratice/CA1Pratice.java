@@ -58,7 +58,7 @@ public class CA1Pratice {
                     var line = myReader.nextLine();
                     /*
                     An if condition to check which data are we looking at:
-                    Starting from the names manipulation, using a Regex, took from Regex-generator website, first we take the full name input, if the line matches with the Regex we understand as the name and assign to the fullName variable.
+                    Starting from the names manipulation, using a Regex, took from Regex-generator website, first we take the full name input, if the line matches with the Regex we understand as the name and assign to the fullName variable..
                     */
                     if(line.matches("^[A-Za-z]+\\s[A-Za-z0-9]+$")){
                         fullName = line;
