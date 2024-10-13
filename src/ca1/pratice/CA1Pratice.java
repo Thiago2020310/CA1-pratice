@@ -8,6 +8,11 @@ import java.io.FileReader; //Import Java FileReader package to read the file
 import java.util.Arrays; //Import Arrays package that will be used to store names
 import java.util.Scanner; //Import Scanner package 
 
+/*
+Pattern to define a pattern that will be used by Matcher to validate the data. (w3schools)
+*/
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  *
@@ -52,27 +57,47 @@ public class CA1Pratice {
                 double price;
                 int year;
                 
-                /*
-                Variable to store data validation. Firstly is store 0, if any condition doesn't match with the 
-                based on the validations. The cases are:
-                0 - name 
-                */
-                int validation = 0;
+                
+                
                 /*
                 A while loop that will run while there is a next line to be read. It stops once it gets to a blank line. So it can be used on this way for this exercise, but on a more complex document would require a more complex validation(guard) since this could easly cause trouble.
                 */
                 while(myReader.hasNext()){
                     //variable to read the next line on the file
                     var line = myReader.nextLine();
+                    
+                    /*
+                    Matcher class assigning a pattern to and comparing the line read with the validation
+                    boolean to hold if the line read is valid or not
+                    */
+                    Pattern namePattern = Pattern.compile("^[A-Za-z0-9]+\\s[A-Za-z0-9]+$");
+                    Matcher lineMatcher = namePattern.matcher(line);
+                    boolean nameValidation = lineMatcher.find();
+                    
+                    //Pattern for special characters the pattern is unicode found on https://stackoverflow.com/questions/18057962/regex-pattern-including-all-special-characters
+                    Pattern specialCh = Pattern.compile("[^\\\\p{L}\\\\d\\\\s_]");
+                    Matcher specialChMatcher = specialCh.matcher(line);
+                    boolean specialChValidation = specialChMatcher.find();
                     /*
                     An if condition to check which data are we looking at:
                     Starting from the names manipulation, using a Regex, took from Regex-generator website, first we take the full name input, if the line matches with the Regex we understand as the name and assign to the fullName variable..
                     */
-                    if(line.matches("^[A-Za-z]+\\s[A-Za-z0-9]+$")){
+                    if(nameValidation){
                         fullName = line;
+                        
                         String[] names = fullName.split(" ");
                         firstName = names[0];
                         surname = names[1];
+                        Pattern fnPattern = Pattern.compile("^[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
+                        Matcher fnMatcher = fnPattern.matcher(firstName);
+                        boolean fnValidation = fnMatcher.find();
+                        if(fnValidation){
+                            System.out.println(firstName);
+                        }
+                        else{
+                            System.out.println("The first name must contain only letters.");
+                        }
+                        
                         System.out.println(firstName + " " + surname);
                         
                     }
@@ -87,26 +112,9 @@ public class CA1Pratice {
                     else if(line.matches("\\d{4}$")){
                         year = Integer.parseInt(line);
                         System.out.println(year);
+                    }else if(specialChValidation){
+                        System.out.println("No special character are accepted.");
                     }
-                    
-                    switch(validation){
-                        case 1:
-                            System.out.println("Name validation fail");
-                            break;
-                        case 2:
-                            System.out.println("Price validation fail");
-                            break;
-                        case 3:
-                            System.out.println("Class validation fail");
-                            break;
-                        case 4:
-                            System.out.println("Year validation fail");
-                            break;
-                    }
-                            
-                    
-                                
-                    
                     
                 }
              
